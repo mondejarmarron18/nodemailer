@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 1rem;
+      }
+
+      div {
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+
+      label {
+        color: rgb(0, 60, 255);
+        text-transform: uppercase;
+        font-weight: 700;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      input[type="email"],
+      textarea {
+        border-radius: 10px;
+        margin-top: 0.5rem;
+        width: 100%;
+        color: rgb(0, 60, 255);
+        padding: 0.7rem 1rem;
+        resize: none;
+        border: none;
+        background: rgba(220, 228, 255, 0.541);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        outline: none;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        color: white;
+        background-color: rgb(75, 117, 255);
+        border-radius: 25px;
+        margin: 0 auto;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <div>
+        <label for=""
+          >Email: <br /><input
+            type="email"
+            name="message"
+            id="email"
+            placeholder="Email"
+            required
+        /></label>
+      </div>
+      <div>
+        <label for=""
+          >Message:<br />
+          <textarea
+            name="message"
+            id="message"
+            cols="30"
+            rows="10"
+            required
+          ></textarea>
+        </label>
+      </div>
+      <div><input type="submit" value="Send" id="sendBtn" /></div>
+    </form>
+
+    <script>
+      document.querySelector("#sendBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch("http://localhost:5001", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({
+            email: document.querySelector("#email").value,
+            message: document.querySelector("#message").value,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => alert("Email sent"));
+      });
+    </script>
+  </body>
+</html>
